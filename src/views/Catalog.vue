@@ -3,13 +3,18 @@
     <v-text-field clearable label="Label" prepend-icon="$vuetify"></v-text-field>
     <v-row no-gutters>
       <v-col
+        style="padding: 12px"
         v-for="product in store.products"
         :key="product.id"
         cols="12"
         sm="4"
         @click="goToProductPage(product.id)"
       >
-        <product-item :product-data="product" @item-clicked="goToProductPage" />
+        <product-item
+          style="cursor: pointer"
+          :product-data="product"
+          @item-clicked="goToProductPage"
+        />
       </v-col>
     </v-row>
   </div>
