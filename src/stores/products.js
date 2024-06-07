@@ -1,4 +1,4 @@
-// products.js
+// stores/products.js
 import { defineStore } from 'pinia'
 
 export const productsStore = defineStore('products', {
@@ -6,7 +6,6 @@ export const productsStore = defineStore('products', {
     products: [],
     cart: []
   }),
-
   actions: {
     fetchProductsFromDB() {
       fetch('https://dummyjson.com/products')
@@ -15,19 +14,16 @@ export const productsStore = defineStore('products', {
           this.products = json.products
         })
     },
-
     addToCart(product) {
       this.cart.push(product)
     },
-
     removeFromCart(id) {
-      console.log('>>>>> ID', id)
       this.cart = this.cart.filter((item) => item.id !== id)
+    },
+    resetStore() {
+      this.products = []
+      this.cart = []
+      this.fetchProductsFromDB()
     }
-  },
-
-  getters: {
-    // Define a getter to calculate the cart quantity
-    cartQuantity: (state) => state.cart.length
   }
 })
