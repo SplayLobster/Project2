@@ -8,12 +8,24 @@
         </v-btn>
 
         <v-spacer></v-spacer>
+        <a href="https://intranet-web.it/" target="blank">
+          <v-btn icon>
+            <img src="./assets/intranet.png" alt="Logo" class="toolbar-logo" />
+          </v-btn>
+        </a>
         INTRANET
         <v-spacer></v-spacer>
 
         <router-link to="/cart">
           <v-btn icon>
-            <v-badge :content="store.cart.length" color="red" overlap offset-x="10" offset-y="10">
+            <v-badge
+              class="toolbar-cart"
+              :content="store.cart.length"
+              color="red"
+              overlap
+              offset-x="10"
+              offset-y="10"
+            >
               <img src="./assets/cart.png" alt="Cart" class="toolbar-cart" />
             </v-badge>
           </v-btn>
@@ -55,6 +67,11 @@ const resetAndNavigateHome = () => {
   padding: 16px;
 }
 
+.toolbar-logo {
+  width: 56px;
+  height: 46px;
+  cursor: alias;
+}
 .toolbar-home {
   width: 40px;
   height: 32px;
@@ -65,5 +82,28 @@ const resetAndNavigateHome = () => {
   width: 54px;
   height: 40px;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+.toolbar-cart:hover {
+  animation: shaking 0.4s 2;
+}
+@keyframes shaking {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(4px) rotate(5deg);
+  }
+  50% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateX(-4px) rotate(-5deg);
+  }
+  100% {
+    transform: translateX(0px) rotate(0deg);
+  }
 }
 </style>

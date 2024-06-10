@@ -23,14 +23,31 @@
     <div class="cart-summary">
       <p>Summary of the order: ${{ returnSum }}</p>
     </div>
+    <button type="button" class="payment-button" @click="showModal">PAYMENT</button>
+    <Modal v-if="isModalVisible" @close="closeModal">
+      <h2>Payment Details</h2>
+      <!-- Add your payment details here -->
+    </Modal>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { productsStore } from '@/stores/products'
+import Modal from '@/components/Modal.vue'
 
 const store = productsStore()
+
+// Modal visibility state
+const isModalVisible = ref(false)
+
+const showModal = () => {
+  isModalVisible.value = true
+}
+
+const closeModal = () => {
+  isModalVisible.value = false
+}
 
 // Calculate total price
 const returnSum = computed(() => {
@@ -100,5 +117,17 @@ input[type='number'] {
   width: 40px;
   padding: 5px;
   font-size: 14px;
+}
+.payment-button {
+  background-color: #ffd814;
+  color: #000000;
+  font-size: 14px;
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.42857;
 }
 </style>
