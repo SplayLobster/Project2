@@ -1,6 +1,6 @@
 <template>
   <div class="products-list">
-    <v-text-field clearable label="Label" prepend-icon="$vuetify"></v-text-field>
+    <v-text-field clearable label="Label"></v-text-field>
     <v-row no-gutters>
       <v-col
         style="padding: 12px"
@@ -38,8 +38,6 @@ import { useRouter } from 'vue-router'
 
 const store = productsStore()
 const router = useRouter()
-
-//const search = ref('')
 
 const goToProductPage = (id) => {
   router.push({ name: 'ProductView', params: { id } })

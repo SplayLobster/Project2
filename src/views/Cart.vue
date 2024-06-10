@@ -20,7 +20,9 @@
       </div>
     </div>
   </div>
-  <p v-for="(group, index) in groupedCart" :key="index">Summary order:</p>
+  <div class="cart-item">
+    <p>Summary of the order: {{ returnSum(group, index) }}</p>
+  </div>
 </template>
 
 <script>
@@ -35,6 +37,10 @@ export default defineComponent({
 import { productsStore } from '@/stores/products'
 
 const store = productsStore()
+
+const returnSum = () => {
+  return store.cart.reduce((acc, item) => acc + item.price, 0)
+}
 
 const removeFromCart = (id) => {
   store.removeFromCart(id)

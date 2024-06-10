@@ -28,7 +28,6 @@ export const productsStore = defineStore('products', {
     },
     resetStore() {
       this.products = []
-      this.cart = []
       this.fetchProductsFromDB()
     }
   }

@@ -9,15 +9,11 @@
     ></v-img>
     <v-card-title>{{ productData.title }}</v-card-title>
     <v-card-subtitle>${{ productData.price }}</v-card-subtitle>
-    <v-card-actions>
-      <v-btn v-if="showAddToCart" @click.stop="addToCart">Add to Cart</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { productsStore } from '@/stores/products'
 
 export default defineComponent({
   name: 'ProductItem',
@@ -25,21 +21,6 @@ export default defineComponent({
     productData: {
       type: Object,
       required: true
-    },
-    showAddToCart: {
-      type: Boolean,
-      default: false
-    }
-  },
-  setup(props) {
-    const store = productsStore()
-
-    const addToCart = () => {
-      store.addToCart(props.productData)
-    }
-
-    return {
-      addToCart
     }
   }
 })
