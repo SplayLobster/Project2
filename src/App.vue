@@ -13,7 +13,7 @@
 
         <router-link to="/cart">
           <v-btn icon>
-            <v-badge :content="cartQuantity" color="red" overlap offset-x="10" offset-y="10">
+            <v-badge :content="store.cart.length" color="red" overlap offset-x="10" offset-y="10">
               <img src="./assets/cart.png" alt="Cart" class="toolbar-cart" />
             </v-badge>
           </v-btn>
@@ -28,13 +28,11 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import { productsStore } from '@/stores/products'
 import { useRouter } from 'vue-router'
 
 const store = productsStore()
 const router = useRouter()
-const cartQuantity = computed(() => store.cart.length)
 
 const resetAndNavigateHome = () => {
   store.resetStore() // Reset the store

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div v-if="!groupedCart.length" style="text-align: center">
     <h1>Empty Cart ...</h1>
@@ -11,41 +12,50 @@
           <span>Category: {{ group[0].category }}</span> <br />
           <span>Price: ${{ group[0].price }}</span> <br />
           <span>
-            <button @click="decrementQuantity(index)">-</button>
-            {{ groupQuantity[index] }}
-            <button @click="incrementQuantity(index)">+</button>
+            <button @click="decrementQuantity(group[0].id)">-</button>
+            {{ group.length }}
+            <button @click="incrementQuantity(group[0].id)">+</button>
           </span>
-          <button @click="removeFromCart(group[0].id)">Remove</button>
+          <button @click="removeAllFromCart(group[0].id)">Remove</button>
         </div>
       </div>
     </div>
-  </div>
-  <div class="cart-item">
-    <p>Summary of the order: {{ returnSum(group, index) }}</p>
+    <div class="cart-summary">
+      <p>Summary of the order: ${{ returnSum }}</p>
+    </div>
   </div>
 </template>
 
-<script>
-import { defineComponent, computed, ref } from 'vue'
-
-export default defineComponent({
-  name: 'CartView'
-})
-</script>
-
 <script setup>
+import { computed } from 'vue'
 import { productsStore } from '@/stores/products'
 
 const store = productsStore()
 
-const returnSum = () => {
-  return store.cart.reduce((acc, item) => acc + item.price, 0)
+// Calculate total price
+const returnSum = computed(() => {
+  return Math.floor(store.cart.reduce((acc, item) => acc + item.price, 0) * 100) / 100
+})
+
+// Add one unit of the product
+const incrementQuantity = (id) => {
+  const product = store.products.find((item) => item.id === id)
+  if (product) {
+    store.addToCart(product)
+  }
 }
 
-const removeFromCart = (id) => {
+// Remove one unit of the product
+const decrementQuantity = (id) => {
+  store.removeOneFromCart(id)
+}
+
+// Remove all units of the product
+const removeAllFromCart = (id) => {
   store.removeFromCart(id)
 }
 
+// Group cart items by their ID
 const groupedCart = computed(() => {
   const grouped = {}
   for (const item of store.cart) {
@@ -57,18 +67,6 @@ const groupedCart = computed(() => {
   }
   return Object.values(grouped)
 })
-
-const groupQuantity = ref(groupedCart.value.map((group) => group.length))
-
-const incrementQuantity = (index) => {
-  groupQuantity.value[index]++
-}
-
-const decrementQuantity = (index) => {
-  if (groupQuantity.value[index] > 1) {
-    groupQuantity.value[index]--
-  }
-}
 </script>
 
 <style scoped>

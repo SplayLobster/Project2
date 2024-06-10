@@ -4,10 +4,10 @@ import { defineStore } from 'pinia'
 export const productsStore = defineStore('products', {
   state: () => ({
     products: [],
-    cart: [],
-    n_products: 0
+    cart: []
   }),
   actions: {
+    // Fetch products from API
     fetchProductsFromDB() {
       fetch('https://dummyjson.com/products')
         .then((res) => res.json())
@@ -15,17 +15,28 @@ export const productsStore = defineStore('products', {
           this.products = json.products
         })
     },
-    setProductCount(count) {
-      this.n_products = count
-    },
+
+    // Add product to cart
     addToCart(product) {
-      this.cart.push(product)
-      this.global.setProductCount(this.products.length)
+      // Clone the product to avoid mutation issues
+      const productCopy = { ...product }
+      this.cart.push(productCopy)
     },
+
+    // Remove all instances of a product from cart
     removeFromCart(id) {
       this.cart = this.cart.filter((item) => item.id !== id)
-      this.global.setProductCount(this.products.length)
     },
+
+    // Remove one instance of a product from cart
+    removeOneFromCart(id) {
+      const index = this.cart.findIndex((item) => item.id === id)
+      if (index !== -1) {
+        this.cart.splice(index, 1) // Remove one instance of the product
+      }
+    },
+
+    // Reset the store and fetch products again
     resetStore() {
       this.products = []
       this.fetchProductsFromDB()
