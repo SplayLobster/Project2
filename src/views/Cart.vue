@@ -1,5 +1,4 @@
 <template>
-  <button @click="router.push({ name: 'Catalog' })">Back to catalog</button>
   <div v-if="!groupedCart.length" style="text-align: center">
     <h1>Empty Cart ...</h1>
   </div>
@@ -21,10 +20,12 @@
       </div>
     </div>
   </div>
+  <p v-for="(group, index) in groupedCart" :key="index">Summary order:</p>
 </template>
 
 <script>
 import { defineComponent, computed, ref } from 'vue'
+
 export default defineComponent({
   name: 'CartView'
 })
@@ -32,9 +33,6 @@ export default defineComponent({
 
 <script setup>
 import { productsStore } from '@/stores/products'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 const store = productsStore()
 
