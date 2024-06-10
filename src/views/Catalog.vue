@@ -5,10 +5,10 @@
       <v-col
         style="padding: 12px"
         v-for="product in store.products"
-        :key="product.id"
+        :key="product.title"
         cols="12"
         sm="4"
-        @click="goToProductPage(product.id)"
+        @click="goToProductPage(product.title)"
       >
         <product-item
           style="cursor: pointer"
@@ -39,8 +39,8 @@ import { useRouter } from 'vue-router'
 const store = productsStore()
 const router = useRouter()
 
-const goToProductPage = (id) => {
-  router.push({ name: 'ProductView', params: { id } })
+const goToProductPage = (title) => {
+  router.push({ name: 'ProductView', params: { title } })
 }
 
 onMounted(async () => {

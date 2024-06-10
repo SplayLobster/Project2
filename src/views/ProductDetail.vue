@@ -51,7 +51,7 @@ const router = useRouter()
 const route = useRoute()
 
 const selectedProduct = computed(() => {
-  return store.products.find((item) => item.id === Number(route.params.id))
+  return store.products.find((item) => item.title === route.params.title)
 })
 
 const addToCart = () => {

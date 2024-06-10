@@ -12,9 +12,10 @@ const router = createRouter({
       component: Catalog
     },
     {
-      path: '/product/:id',
+      path: '/product/:title',
       name: 'ProductView',
-      component: ProductDetail
+      component: ProductDetail,
+      props: (route) => ({ name: decodeURIComponent(route.params.title) }) // Decode the product name
     },
     {
       path: '/cart',
