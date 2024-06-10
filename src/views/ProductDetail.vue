@@ -8,8 +8,26 @@
       <img :src="selectedProduct.thumbnail" alt="" />
     </div>
     <div class="product-details">
-      <p>Brand: {{ selectedProduct.brand }}</p>
-      <p>Description: {{ selectedProduct.description }}</p>
+      <h2>{{ selectedProduct.title }}</h2>
+      <h5 style="color: lightskyblue">{{ selectedProduct.brand }}</h5>
+      <div class="rating">
+        <font-awesome-icon
+          v-for="star in fullStars"
+          :key="`full-${star}`"
+          icon="star"
+          class="star"
+        />
+        <font-awesome-icon v-if="hasHalfStar" icon="star-half-alt" class="half-star" />
+        <font-awesome-icon
+          v-for="star in emptyStars"
+          :key="`empty-${star}`"
+          icon="star"
+          class="empty-star"
+        />
+      </div>
+      <br />
+      <p>{{ selectedProduct.description }}</p>
+      <br />
       <h2>Price: ${{ selectedProduct.price }}</h2>
       <v-btn variant="elevated" color="indigo-lighten-3" @click="addToCart">Add to cart</v-btn>
     </div>
@@ -39,6 +57,10 @@ const selectedProduct = computed(() => {
 const addToCart = () => {
   store.addToCart(selectedProduct.value)
 }
+
+const fullStars = computed(() => Math.floor(selectedProduct.value.rating))
+const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
+const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 : 0))
 </script>
 
 <style scoped>
@@ -49,5 +71,24 @@ const addToCart = () => {
 
 .product-image {
   margin-right: 24px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating .fa-star {
+  color: yellow;
+}
+
+.rating .half-star {
+  position: relative;
+  color: yellow;
+}
+
+.rating .empty-star {
+  color: #ffffff;
+  border-color: rgb(255, 230, 0);
 }
 </style>
