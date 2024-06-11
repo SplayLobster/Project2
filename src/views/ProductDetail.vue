@@ -113,7 +113,7 @@ const handleAddToCart = () => {
   cartAlertVisible.value = true
   setTimeout(() => {
     cartAlertVisible.value = false
-  }, 3000)
+  }, 1000)
 }
 
 const goToProductPage = (title) => {

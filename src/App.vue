@@ -36,7 +36,7 @@
       <v-main class="main-content">
         <router-view></router-view>
         <div :class="{ 'footer-spacing': showFooter }"></div>
-        <Footer v-if="showFooter" />
+        <Footer v-if="showFooter" class="footer" />
       </v-main>
     </v-app>
   </div>
@@ -67,7 +67,7 @@ const handleScroll = () => {
   }, 50)
 }
 
-// Debounce scroll event
+handleScroll()
 let debounceTimeout = null
 const debounceScroll = () => {
   clearTimeout(debounceTimeout)
@@ -85,6 +85,18 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+#app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container fills the screen */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 .app-toolbar {
   position: fixed;
   top: 0;
@@ -97,7 +109,8 @@ onUnmounted(() => {
 .v-main {
   margin-top: 56px;
   padding: 16px;
-  position: relative; /* Ensure the positioning context is set */
+  position: relative;
+  flex-grow: 1;
 }
 
 .toolbar-logo {
@@ -140,8 +153,7 @@ onUnmounted(() => {
   }
 }
 
-/* Add this for the footer spacing */
 .footer-spacing {
-  height: 200px; /* Adjust based on the height of your footer */
+  height: 160px; /* Adjust based on the height of your footer */
 }
 </style>

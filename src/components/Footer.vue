@@ -22,12 +22,18 @@ export default {
 
 <style scoped>
 .footer {
+  #app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
   width: 100%;
   padding: 15px 25px;
   background-color: #333333b8;
   color: #fff;
   text-align: center;
   position: fixed;
+  margin-top: auto;
   bottom: 0;
   left: 0;
   right: 0;
@@ -40,7 +46,6 @@ export default {
   margin: 0 auto;
 }
 .footer-logo {
-  color: blue;
   height: 140px;
   width: auto;
 }

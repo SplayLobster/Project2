@@ -28,7 +28,7 @@
             {{ group.length }}
             <button
               style="color: greenyellow; font-size: 20px"
-              @click="incrementQuantity(group[0].id)"
+              @click="incrementQuantity(group[0].id, group[0].title)"
             >
               +
             </button>
@@ -53,7 +53,8 @@
       </Modal>
     </div>
     <br />
-    <p v-if="showRemoveMessage">{{ removedProductName }} removed from the cart</p>
+    <p v-if="showRemoveMessage">{{ removedProductName }} removed from cart</p>
+    <p v-if="showAddMessage">{{ addedProductName }} added to cart</p>
   </div>
 </template>
 
@@ -69,7 +70,9 @@ const router = useRouter()
 // Modal visibility state
 const isModalVisible = ref(false)
 const showRemoveMessage = ref(false)
+const showAddMessage = ref(false)
 const removedProductName = ref('')
+const addedProductName = ref('')
 
 const showModal = () => {
   isModalVisible.value = true
@@ -92,10 +95,15 @@ const returnSum = computed(() => {
 })
 
 // Add one unit of the product
-const incrementQuantity = (id) => {
+const incrementQuantity = (id, name) => {
   const product = store.products.find((item) => item.id === id)
   if (product) {
     store.addToCart(product)
+    showAddMessage.value = true
+    addedProductName.value = name
+    setTimeout(() => {
+      showAddMessage.value = false
+    }, 1000)
   }
 }
 
@@ -105,7 +113,7 @@ const decrementQuantity = (id, name) => {
   removedProductName.value = name
   setTimeout(() => {
     showRemoveMessage.value = false
-  }, 2000)
+  }, 1000)
 }
 
 const removeAllFromCart = (id, name) => {
@@ -114,7 +122,7 @@ const removeAllFromCart = (id, name) => {
   removedProductName.value = name
   setTimeout(() => {
     showRemoveMessage.value = false
-  }, 2000)
+  }, 1000)
 }
 
 // Group cart items by their ID
