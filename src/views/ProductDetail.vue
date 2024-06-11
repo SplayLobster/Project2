@@ -51,7 +51,7 @@
     <div class="suggested-products">
       <h3>Suggested Products</h3>
       <v-row>
-        <v-col v-for="suggested in suggestedProducts" :key="suggested.title" cols="6" sm="6" md="6">
+        <v-col v-for="suggested in suggestedProducts" :key="suggested.title" cols="4" sm="4" md="4">
           <v-card @click="goToProductPage(suggested.title)" style="cursor: pointer">
             <v-img :src="suggested.thumbnail" height="150px" />
             <v-card-title>{{ suggested.title }}</v-card-title>

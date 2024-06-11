@@ -7,10 +7,10 @@
         style="padding: 12px"
         v-for="product in store.products"
         :key="product.title"
-        cols="6"
-        sm="6"
-        md="4"
-        lg="3"
+        cols="4.5"
+        sm="4.5"
+        md="2"
+        lg="1.5"
         @click="goToProductPage(product.title)"
       >
         <product-item

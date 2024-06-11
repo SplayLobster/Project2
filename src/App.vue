@@ -9,12 +9,14 @@
         </v-btn>
 
         <v-spacer></v-spacer>
-        <a href="https://intranet-web.it/" target="blank">
-          <v-btn icon>
-            <img src="./assets/logo.png" alt="Logo" class="toolbar-logo" />
-          </v-btn>
+
+        <v-btn icon>
+          <img src="./assets/logo.png" alt="Logo" class="toolbar-logo" />
+        </v-btn>
+
+        <a href="https://www.onologistics.com/" target="blank">
+          <button style="color: white">INTRANET</button>
         </a>
-        INTRANET
         <v-spacer></v-spacer>
 
         <router-link to="/cart">
@@ -36,7 +38,7 @@
       <v-main class="main-content">
         <router-view></router-view>
         <div :class="{ 'footer-spacing': showFooter }"></div>
-        <Footer v-if="showFooter" class="footer" />
+        <Footer v-if="showFooter && $route.path !== '/cart'" class="footer" />
       </v-main>
     </v-app>
   </div>
