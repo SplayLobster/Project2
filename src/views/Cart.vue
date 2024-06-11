@@ -6,37 +6,58 @@
   <div class="cart-items" v-else>
     <div class="cart-item" v-for="(group, index) in groupedCart" :key="index">
       <div class="item-details">
-        <img :src="group[0].thumbnail" alt="" />
+        <img
+          @click="goToProductPage(group[0].title)"
+          style="cursor: pointer; height: 150px; width: 200px"
+          :src="group[0].thumbnail"
+          alt=""
+        />
+
         <div>
+          <h2>{{ group[0].title }}</h2>
           <span>Brand: {{ group[0].brand }}</span> <br />
           <span>Category: {{ group[0].category }}</span> <br />
           <span>Price: ${{ group[0].price }}</span> <br />
           <span>
-            <button @click="decrementQuantity(group[0].id)">-</button>
+            <button style="color: red; font-size: 28px" @click="decrementQuantity(group[0].id)">
+              -
+            </button>
             {{ group.length }}
-            <button @click="incrementQuantity(group[0].id)">+</button>
+            <button
+              style="color: greenyellow; font-size: 20px"
+              @click="incrementQuantity(group[0].id)"
+            >
+              +
+            </button>
           </span>
-          <button @click="removeAllFromCart(group[0].id)">Remove</button>
+          <button style="color: blue" @click="removeAllFromCart(group[0].id)">Remove</button>
         </div>
       </div>
     </div>
     <div class="cart-summary">
-      <p>Summary of the order: ${{ returnSum }}</p>
+      <div class="summary-info">
+        <p style="float: right; padding-right: 4px">
+          Summary of order ({{ returnlenght }} articles) :
+        </p>
+        <h4 style="float: left">${{ returnSum }}</h4>
+      </div>
+      <button type="button" class="payment-button" @click="showModal">PAYMENT</button>
+      <Modal v-if="isModalVisible" @close="closeModal">
+        <h2>Payment Details</h2>
+        <!-- Add your payment details here -->
+      </Modal>
     </div>
-    <button type="button" class="payment-button" @click="showModal">PAYMENT</button>
-    <Modal v-if="isModalVisible" @close="closeModal">
-      <h2>Payment Details</h2>
-      <!-- Add your payment details here -->
-    </Modal>
   </div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
 import { productsStore } from '@/stores/products'
+import { useRouter } from 'vue-router'
 import Modal from '@/components/Modal.vue'
 
 const store = productsStore()
+const router = useRouter()
 
 // Modal visibility state
 const isModalVisible = ref(false)
@@ -49,6 +70,13 @@ const closeModal = () => {
   isModalVisible.value = false
 }
 
+const goToProductPage = (title) => {
+  router.push({ name: 'ProductView', params: { title } })
+}
+
+const returnlenght = computed(() => {
+  return store.cart.length
+})
 // Calculate total price
 const returnSum = computed(() => {
   return Math.floor(store.cart.reduce((acc, item) => acc + item.price, 0) * 100) / 100
@@ -112,11 +140,15 @@ button {
   font-size: 14px;
   cursor: pointer;
 }
-
-input[type='number'] {
-  width: 40px;
-  padding: 5px;
-  font-size: 14px;
+.cart-summary {
+  display: flex;
+  align-items: center;
+}
+.summary-info {
+  flex: 1;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
 }
 .payment-button {
   background-color: #ffd814;

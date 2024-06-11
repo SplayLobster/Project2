@@ -16,6 +16,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+router.beforeEach((to, from, next) => {
+  // Set the title based on the route's meta.title property
+  if (to.meta && to.meta.title) {
+    document.title = to.meta.title
+  } else {
+    // Set a default title if the route doesn't have a meta.title
+    document.title = 'Intranet'
+  }
+  next()
+})
+
 const vuetify = createVuetify({
   components,
   directives

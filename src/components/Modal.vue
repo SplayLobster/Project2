@@ -9,7 +9,7 @@
           <label for="cardNumber">Card Number</label>
           <input
             type="text"
-            maxlength="16"
+            maxlength="19"
             id="cardNumber"
             v-model="paymentData.cardNumber"
             placeholder="1234 5678 9012 3456"
@@ -19,6 +19,7 @@
         <div class="form-group">
           <label for="cardName">Cardholder Name</label>
           <input
+            maxlength="38"
             type="text"
             id="cardName"
             v-model="paymentData.cardName"
@@ -53,7 +54,13 @@
         </div>
         <div class="form-group">
           <label for="billingAddress">Billing Address</label>
-          <input type="text" id="billingAddress" v-model="paymentData.billingAddress" required />
+          <input
+            maxlength="60"
+            type="text"
+            id="billingAddress"
+            v-model="paymentData.billingAddress"
+            required
+          />
         </div>
         <button type="submit" class="payment-submit">Submit Payment</button>
       </form>

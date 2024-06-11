@@ -1,13 +1,16 @@
 <template>
+  <title>Intranet</title>
   <div class="products-list">
-    <v-text-field clearable label="Label"></v-text-field>
+    <v-text-field clearable label="Search"></v-text-field>
     <v-row no-gutters>
       <v-col
         style="padding: 12px"
         v-for="product in store.products"
         :key="product.title"
-        cols="12"
-        sm="4"
+        cols="6"
+        sm="6"
+        md="4"
+        lg="3"
         @click="goToProductPage(product.title)"
       >
         <product-item

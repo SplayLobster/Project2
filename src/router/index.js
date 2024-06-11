@@ -9,7 +9,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'Catalog',
-      component: Catalog
+      component: Catalog,
+      meta: {
+        title: 'Intranet'
+      }
     },
     {
       path: '/product/:title',
@@ -22,7 +25,11 @@ const router = createRouter({
       name: 'CartView',
       component: Cart
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 }
+  }
 })
 
 export default router
