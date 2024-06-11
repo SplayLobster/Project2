@@ -1,8 +1,4 @@
 <template>
-  <v-btn @click="router.push({ name: 'Catalog' })" color="primary" variant="elevated">
-    Back to catalog
-  </v-btn>
-
   <div class="product-page">
     <div class="product">
       <div class="product-image">
@@ -30,17 +26,21 @@
         <p style="margin-bottom: 0px">{{ selectedProduct.description }}</p>
         <br />
         <h2 style="margin-top: -12px">Price: ${{ selectedProduct.price }}</h2>
-        <v-btn
-          style="margin-right: 10px"
-          variant="elevated"
-          color="indigo-lighten-3"
-          @click="addToCart"
-          >Add to cart</v-btn
-        >
-        <v-btn variant="elevated" class="payment-button" @click="showModal">Buy now</v-btn>
-        <div v-if="isProductInCart" class="cart-alert">
-          <font-awesome-icon icon="exclamation-triangle" class="alert-icon" />
-          <p>{{ cartItemCount }}</p>
+        <div class="button-alert-container">
+          <v-btn
+            style="margin-right: 10px"
+            variant="elevated"
+            color="indigo-lighten-3"
+            @click="handleAddToCart"
+            >Add to cart</v-btn
+          >
+          <v-btn variant="elevated" class="payment-button" @click="showModal">Buy now</v-btn>
+          <transition name="fade">
+            <div v-if="cartAlertVisible" class="cart-alert">
+              <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="alert-icon" />
+              <p>Item added to cart</p>
+            </div>
+          </transition>
         </div>
         <Modal v-if="isModalVisible" @close="closeModal">
           <h2>Payment Details</h2>
@@ -78,6 +78,7 @@ import { useRoute, useRouter } from 'vue-router'
 import Modal from '@/components/Modal.vue'
 
 const isModalVisible = ref(false)
+const cartAlertVisible = ref(false)
 
 const showModal = () => {
   isModalVisible.value = true
@@ -94,15 +95,6 @@ const selectedProduct = computed(() => {
   return store.products.find((item) => item.title === route.params.title)
 })
 
-const isProductInCart = computed(() => {
-  // Check if the selected product is in the cart
-  return store.cart.some((item) => item.title === selectedProduct.value.title)
-})
-const cartItemCount = computed(() => {
-  // Count the number of selected products in the cart
-  return store.cart.filter((item) => item.title === selectedProduct.value.title).length
-})
-
 const suggestedProducts = computed(() => {
   if (!selectedProduct.value) return []
   return store.products.filter(
@@ -115,6 +107,13 @@ const suggestedProducts = computed(() => {
 
 const addToCart = () => {
   store.addToCart(selectedProduct.value)
+}
+const handleAddToCart = () => {
+  addToCart()
+  cartAlertVisible.value = true
+  setTimeout(() => {
+    cartAlertVisible.value = false
+  }, 3000)
 }
 
 const goToProductPage = (title) => {
@@ -158,7 +157,7 @@ const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 :
 .suggested-products {
   flex: 1;
   margin-left: 24px;
-  margin-top: 0%;
+  margin-top: -32px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -209,5 +208,32 @@ const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 :
 .alert-icon {
   color: orange;
   margin-right: 5px;
+}
+.button-alert-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.cart-alert {
+  display: flex;
+  align-items: center;
+  margin-left: 10px; /* Space between the button and the alert */
+}
+
+.alert-icon {
+  font-size: 30px;
+  color: orange;
+  margin-right: 5px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

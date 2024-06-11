@@ -20,3 +20,9 @@ main {
     height: 30px;
   }
 }
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}

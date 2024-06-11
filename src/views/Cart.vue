@@ -19,7 +19,10 @@
           <span>Category: {{ group[0].category }}</span> <br />
           <span>Price: ${{ group[0].price }}</span> <br />
           <span>
-            <button style="color: red; font-size: 28px" @click="decrementQuantity(group[0].id)">
+            <button
+              style="color: red; font-size: 28px"
+              @click="decrementQuantity(group[0].id, group[0].title)"
+            >
               -
             </button>
             {{ group.length }}
@@ -30,7 +33,9 @@
               +
             </button>
           </span>
-          <button style="color: blue" @click="removeAllFromCart(group[0].id)">Remove</button>
+          <button style="color: blue" @click="removeAllFromCart(group[0].id, group[0].title)">
+            Remove
+          </button>
         </div>
       </div>
     </div>
@@ -47,6 +52,8 @@
         <!-- Add your payment details here -->
       </Modal>
     </div>
+    <br />
+    <p v-if="showRemoveMessage">{{ removedProductName }} removed from the cart</p>
   </div>
 </template>
 
@@ -61,6 +68,8 @@ const router = useRouter()
 
 // Modal visibility state
 const isModalVisible = ref(false)
+const showRemoveMessage = ref(false)
+const removedProductName = ref('')
 
 const showModal = () => {
   isModalVisible.value = true
@@ -90,14 +99,22 @@ const incrementQuantity = (id) => {
   }
 }
 
-// Remove one unit of the product
-const decrementQuantity = (id) => {
+const decrementQuantity = (id, name) => {
   store.removeOneFromCart(id)
+  showRemoveMessage.value = true
+  removedProductName.value = name
+  setTimeout(() => {
+    showRemoveMessage.value = false
+  }, 2000)
 }
 
-// Remove all units of the product
-const removeAllFromCart = (id) => {
+const removeAllFromCart = (id, name) => {
   store.removeFromCart(id)
+  showRemoveMessage.value = true
+  removedProductName.value = name
+  setTimeout(() => {
+    showRemoveMessage.value = false
+  }, 2000)
 }
 
 // Group cart items by their ID
