@@ -15,12 +15,6 @@
             class="rated"
           />
           <font-awesome-icon v-if="hasHalfStar" :icon="['fas', 'star-half-alt']" class="rated" />
-          <font-awesome-icon
-            v-for="index in emptyStars"
-            :key="`empty-${index}`"
-            :icon="['far', 'star']"
-            class="unrated"
-          />
         </div>
         <br />
         <p style="margin-bottom: 0px">{{ selectedProduct.description }}</p>

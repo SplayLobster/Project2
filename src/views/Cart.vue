@@ -152,6 +152,7 @@ const groupedCart = computed(() => {
     }
     grouped[key].push(item)
   }
+
   return Object.values(grouped)
 })
 </script>
