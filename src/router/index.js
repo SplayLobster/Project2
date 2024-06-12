@@ -11,7 +11,7 @@ const router = createRouter({
       name: 'Catalog',
       component: Catalog,
       meta: {
-        title: 'Intranet'
+        title: 'IntraNet'
       }
     },
     {

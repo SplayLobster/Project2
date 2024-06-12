@@ -191,12 +191,10 @@ const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 :
 
 .rated {
   color: #ffab00;
-  cursor: pointer;
 }
 
 .unrated {
   color: #757575;
-  cursor: pointer;
 }
 .cart-alert {
   display: flex;

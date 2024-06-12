@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
   } else {
     // Set a default title if the route doesn't have a meta.title
-    document.title = 'Intranet'
+    document.title = 'IntraNet'
   }
   next()
 })

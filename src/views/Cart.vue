@@ -33,9 +33,7 @@
               +
             </button>
           </span>
-          <button style="color: blue" @click="removeAllFromCart(group[0].id, group[0].title)">
-            Remove
-          </button>
+          <button style="color: blue" @click="removeAllFromCart(group[0].id)">Remove</button>
         </div>
       </div>
     </div>
@@ -53,8 +51,12 @@
       </Modal>
     </div>
     <br />
-    <p v-if="showRemoveMessage">{{ removedProductName }} removed from cart</p>
-    <p v-if="showAddMessage">{{ addedProductName }} added to cart</p>
+    <Transition name="bounce">
+      <p v-if="showRemoveMessage">{{ removedProductName }} removed from cart</p>
+    </Transition>
+    <Transition name="bounce">
+      <p v-if="showAddMessage">{{ addedProductName }} added to cart</p>
+    </Transition>
   </div>
 </template>
 
@@ -99,30 +101,45 @@ const incrementQuantity = (id, name) => {
   const product = store.products.find((item) => item.id === id)
   if (product) {
     store.addToCart(product)
-    showAddMessage.value = true
-    addedProductName.value = name
-    setTimeout(() => {
-      showAddMessage.value = false
-    }, 1000)
+    if (!showRemoveMessage.value) {
+      showAddMessage.value = true
+      addedProductName.value = name
+      setTimeout(() => {
+        showAddMessage.value = false
+      }, 1000)
+    } else {
+      setTimeout(() => {
+        showAddMessage.value = true
+        addedProductName.value = name
+        setTimeout(() => {
+          showAddMessage.value = false
+        }, 1000)
+      }, 1200)
+    }
   }
 }
 
 const decrementQuantity = (id, name) => {
   store.removeOneFromCart(id)
-  showRemoveMessage.value = true
-  removedProductName.value = name
-  setTimeout(() => {
-    showRemoveMessage.value = false
-  }, 1000)
+  if (!showAddMessage.value) {
+    showRemoveMessage.value = true
+    removedProductName.value = name
+    setTimeout(() => {
+      showRemoveMessage.value = false
+    }, 1000)
+  } else {
+    setTimeout(() => {
+      showRemoveMessage.value = true
+      removedProductName.value = name
+      setTimeout(() => {
+        showRemoveMessage.value = false
+      }, 1000)
+    }, 1200)
+  }
 }
 
-const removeAllFromCart = (id, name) => {
+const removeAllFromCart = (id) => {
   store.removeFromCart(id)
-  showRemoveMessage.value = true
-  removedProductName.value = name
-  setTimeout(() => {
-    showRemoveMessage.value = false
-  }, 1000)
 }
 
 // Group cart items by their ID
@@ -186,5 +203,22 @@ button {
   text-align: center;
   font-size: 11px;
   line-height: 1.42857;
+}
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
