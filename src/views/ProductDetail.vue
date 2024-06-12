@@ -41,7 +41,9 @@
           <!-- Add your payment details here -->
         </Modal>
       </div>
+      <ProductComments :reviews="selectedProduct.reviews" />
     </div>
+
     <div class="suggested-products">
       <h3>Suggested Products</h3>
       <v-row>
@@ -70,6 +72,7 @@ import { computed, ref } from 'vue'
 import { productsStore } from '@/stores/products'
 import { useRoute, useRouter } from 'vue-router'
 import Modal from '@/components/Modal.vue'
+import ProductComments from '@/components/ProductReviews.vue'
 
 const isModalVisible = ref(false)
 const cartAlertVisible = ref(false)
@@ -100,6 +103,7 @@ const suggestedProducts = computed(() => {
 })
 
 const addToCart = () => {
+  console.log(selectedProduct.value.reviews)
   store.addToCart(selectedProduct.value)
 }
 const handleAddToCart = () => {
@@ -116,7 +120,6 @@ const goToProductPage = (title) => {
 
 const fullStars = computed(() => Math.floor(selectedProduct.value.rating))
 const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
-const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 : 0))
 </script>
 
 <style scoped>

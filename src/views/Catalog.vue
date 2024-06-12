@@ -35,13 +35,25 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import { productsStore } from '@/stores/products'
 import { useRouter } from 'vue-router'
 
 const store = productsStore()
 const router = useRouter()
 
+const groupedCart = computed(() => {
+  const grouped = {}
+  for (const item of store.cart) {
+    const key = item.id
+    if (!grouped[key]) {
+      grouped[key] = []
+    }
+    grouped[key].push(item)
+  }
+
+  return Object.values(grouped)
+})
 const goToProductPage = (title) => {
   router.push({ name: 'ProductView', params: { title } })
 }

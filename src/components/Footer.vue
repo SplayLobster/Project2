@@ -8,7 +8,11 @@
       </a>
 
       <div class="footer-info">
-        <p>Copyrights &copy; 2024 Tutti i diritti riservati a ONO LEAN LOGISTICS.</p>
+        <p>
+          Copyrights
+          <a href="https://it.wikipedia.org/wiki/Copyright_Act" target="_blank">&copy;</a> 2024
+          Tutti i diritti riservati a ONO LEAN LOGISTICS.
+        </p>
         <p>Via Maestri del Lavoro, 16 37059 Santa Maria di Zevio, Verona, Italia</p>
         <p>Email: SALES@ONOLOGISTICS.COM | Phone: +390456050205</p>
       </div>
