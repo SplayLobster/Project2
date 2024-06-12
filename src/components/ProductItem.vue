@@ -1,21 +1,14 @@
-<!-- ProductItem.vue -->
 <template>
-  <v-card class="product-card">
-    <v-img
-      :src="productData.thumbnail"
-      alt="Product Image"
-      class="product-image"
-      height="200px"
-    ></v-img>
-    <v-card-title>{{ productData.title }}</v-card-title>
-    <v-card-subtitle>${{ productData.price }}</v-card-subtitle>
+  <v-card class="product-item-card">
+    <v-img :src="productData.thumbnail" class="product-image" aspect-ratio="1" />
+    <v-card-title class="product-title">{{ productData.title }}</v-card-title>
+    <v-card-subtitle class="product-brand">{{ productData.brand }}</v-card-subtitle>
+    <v-card-text class="product-price">${{ productData.price }}</v-card-text>
   </v-card>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
+export default {
   name: 'ProductItem',
   props: {
     productData: {
@@ -23,33 +16,44 @@ export default defineComponent({
       required: true
     }
   }
-})
+}
 </script>
 
 <style scoped>
-/* Base styles for the product card */
-.product-card {
-  cursor: pointer;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+.product-item-card {
+  width: 100%;
+  height: 100%;
+  max-width: 150px; /* Consistent width */
+  max-height: 300px; /* Consistent height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
 }
 
-/* Styles for the product image */
 .product-image {
-  transition:
-    filter 0.2s,
-    transform 0.2s;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-/* Hover effect */
-.product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.product-title {
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.product-card:hover .product-image {
-  filter: brightness(0.8);
-  transform: scale(1.05);
+.product-brand {
+  font-size: 12px;
+  color: #757575;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
 }
 </style>
