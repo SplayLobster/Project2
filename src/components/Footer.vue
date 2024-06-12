@@ -3,7 +3,10 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <img src="@/assets/logo.png" alt="Logo" class="footer-logo" />
+      <a href="https://www.onologistics.com/" target="blank">
+        <img src="@/assets/logo.png" alt="Logo" class="footer-logo" />
+      </a>
+
       <div class="footer-info">
         <p>Copyrights &copy; 2024 Tutti i diritti riservati a ONO LEAN LOGISTICS.</p>
         <p>Via Maestri del Lavoro, 16 37059 Santa Maria di Zevio, Verona, Italia</p>

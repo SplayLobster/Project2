@@ -9,7 +9,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
+        <v-btn icon @click="openAccountModal">
           <img src="./assets/logo.png" alt="Logo" class="toolbar-logo" />
         </v-btn>
 
@@ -39,6 +39,8 @@
         <div :class="{ 'footer-spacing': showFooter }"></div>
         <Footer v-if="showFooter && $route.path !== '/cart'" class="footer" />
       </v-main>
+
+      <AccountModal v-if="isModalVisible" @close="closeAccountModal" :show="isModalVisible" />
     </v-app>
   </div>
 </template>
@@ -46,6 +48,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import Footer from './components/Footer.vue'
+import AccountModal from './components/AccountModal.vue' // Import the modal component
 import { productsStore } from '@/stores/products'
 import { useRouter } from 'vue-router'
 
@@ -53,9 +56,22 @@ const store = productsStore()
 const router = useRouter()
 const showFooter = ref(false)
 
+// State for modal visibility
+const isModalVisible = ref(false)
+
 const resetAndNavigateHome = () => {
   store.resetStore()
   router.push('/')
+}
+
+// Function to open the account modal
+const openAccountModal = () => {
+  isModalVisible.value = true
+}
+
+// Function to close the account modal
+const closeAccountModal = () => {
+  isModalVisible.value = false
 }
 
 let timeout = null
@@ -77,7 +93,12 @@ const debounceScroll = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', debounceScroll)
-  handleScroll() // Initial check in case user is already at the bottom
+  handleScroll() // Initial check in case user is already at the bottomù
+  const session = JSON.parse(localStorage.getItem('session'))
+  if (session) {
+    console.log('User is logged in:', session)
+    // Handle user being logged in, e.g., show their info or update UI
+  }
 })
 
 onUnmounted(() => {
@@ -117,7 +138,7 @@ onUnmounted(() => {
 .toolbar-logo {
   width: 56px;
   height: 46px;
-  cursor: alias;
+  cursor: pointer;
 }
 .toolbar-home {
   width: 40px;
