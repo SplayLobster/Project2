@@ -78,7 +78,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  padding-bottom: 80px; /* Adjust bottom padding to accommodate footer */
 }
 
 .search-bar {
@@ -90,6 +90,8 @@ onMounted(async () => {
 .products-list {
   width: 100%;
   padding: 0 20px;
+  max-width: auto; /* Limit maximum width for better readability */
+  background-color: #0ac6ff10;
 }
 
 .category-section {
@@ -113,16 +115,48 @@ onMounted(async () => {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.524);
   cursor: pointer;
   width: 100%;
-  height: 100%;
-  max-width: 150px;
-  max-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  max-width: 180px; /* Adjust product column width */
   padding: 10px;
-  background-color: white;
-  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.product-col:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-col img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-col .v-card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.product-col .v-card-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+.product-col .v-card-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+@media (max-width: 960px) {
+  .product-col {
+    width: 45%;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-col {
+    width: 100%;
+  }
 }
 </style>

@@ -47,7 +47,7 @@
     <div class="suggested-products">
       <h3>Suggested Products</h3>
       <v-row>
-        <v-col v-for="suggested in suggestedProducts" :key="suggested.title" cols="4" sm="4" md="4">
+        <v-col v-for="suggested in suggestedProducts" :key="suggested.title" cols="4">
           <v-card @click="goToProductPage(suggested.title)" style="cursor: pointer">
             <v-img :src="suggested.thumbnail" height="150px" />
             <v-card-title>{{ suggested.title }}</v-card-title>
@@ -155,17 +155,14 @@ const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
   flex: 1;
   margin-left: 24px;
   margin-top: -32px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 .suggested-product {
   cursor: pointer;
-  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 16px;
 }
 
 .suggested-product img {

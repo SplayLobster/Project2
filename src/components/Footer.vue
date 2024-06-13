@@ -33,6 +33,7 @@ export default {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    top: 100px;
   }
   width: 100%;
   padding: 15px 25px;
@@ -40,7 +41,6 @@ export default {
   color: #fff;
   text-align: center;
   position: fixed;
-  margin-top: auto;
   bottom: 0;
   left: 0;
   right: 0;

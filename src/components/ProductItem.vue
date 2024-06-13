@@ -25,7 +25,8 @@ export default {
   cursor: pointer;
   width: 100%;
   height: 100%;
-  max-width: 150px;
+  min-width: 200px;
+  max-width: 300px;
   max-height: 300px;
   display: flex;
   flex-direction: column;
@@ -44,7 +45,7 @@ export default {
 }
 
 .product-title {
-  font-size: 14px;
+  font-size: auto;
   font-weight: bold;
   margin: 10px 0;
   overflow: hidden;

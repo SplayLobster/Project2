@@ -85,6 +85,7 @@ const handleScroll = () => {
 }
 
 handleScroll()
+
 const debounceScroll = () => {
   clearTimeout(debounceTimeout)
   debounceTimeout = setTimeout(handleScroll, 50)
