@@ -34,7 +34,9 @@
                 +
               </button>
             </div>
-            <button style="color: blue" @click="removeAllFromCart(group[0].id)">Remove</button>
+            <button style="color: blue" @click="removeAllFromCart(group[0].id, group[0].title)">
+              Remove
+            </button>
           </div>
         </div>
       </div>
@@ -52,10 +54,10 @@
     </div>
     <br />
     <Transition name="bounce">
-      <p v-if="showRemoveMessage">{{ removedProductName }} removed from cart</p>
+      <p v-if="showRemoveMessage" style="color: red">{{ removedProductName }} removed from cart</p>
     </Transition>
     <Transition name="bounce">
-      <p v-if="showAddMessage">{{ addedProductName }} added to cart</p>
+      <p v-if="showAddMessage" style="color: greenyellow">{{ addedProductName }} added to cart</p>
     </Transition>
   </div>
 </template>
@@ -139,8 +141,23 @@ const decrementQuantity = (id, name) => {
   }
 }
 
-const removeAllFromCart = (id) => {
+const removeAllFromCart = (id, name) => {
   store.removeFromCart(id)
+  if (!showAddMessage.value) {
+    showRemoveMessage.value = true
+    removedProductName.value = name
+    setTimeout(() => {
+      showRemoveMessage.value = false
+    }, 1000)
+  } else {
+    setTimeout(() => {
+      showRemoveMessage.value = true
+      removedProductName.value = name
+      setTimeout(() => {
+        showRemoveMessage.value = false
+      }, 1000)
+    }, 1200)
+  }
 }
 
 // Group cart items by their ID
