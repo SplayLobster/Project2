@@ -1,6 +1,6 @@
 <template>
   <title>Intranet</title>
-  <div class="catalog-container">
+  <div class="catalog-container" @mousemove="updatePreviewPosition">
     <v-text-field v-model="searchQuery" clearable label="Search" class="search-bar"></v-text-field>
     <div class="products-list">
       <div v-for="(products, category) in filteredCatalog" :key="category" class="category-section">
@@ -15,12 +15,20 @@
             lg="2"
             class="product-col"
             @click="goToProductPage(product.title)"
+            @mouseenter="showPreview(product, $event)"
+            @mouseleave="hidePreview"
           >
             <product-item :product-data="product" @item-clicked="goToProductPage" />
           </v-col>
         </v-row>
       </div>
     </div>
+    <ProductPreview
+      v-if="previewProduct"
+      :product="previewProduct"
+      :position="previewPosition"
+      :visible="isPreviewVisible"
+    />
   </div>
 </template>
 
@@ -30,20 +38,26 @@ import ProductItem from '@/components/ProductItem.vue'
 export default defineComponent({
   name: 'CatalogView',
   components: {
-    ProductItem
+    ProductItem,
+    ProductPreview
   }
 })
 </script>
 
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, onUnmounted, computed, ref } from 'vue'
 import { productsStore } from '@/stores/products'
+import ProductPreview from '@/components/ProductPreview.vue'
 import { useRouter } from 'vue-router'
 
 const store = productsStore()
 const router = useRouter()
 
 const searchQuery = ref('')
+const previewProduct = ref(null)
+const previewPosition = ref({ x: 0, y: 0 })
+const isPreviewVisible = ref(false)
+let previewTimeout = null
 
 // Compute grouped catalog based on search query
 const filteredCatalog = computed(() => {
@@ -68,8 +82,31 @@ const goToProductPage = (title) => {
   router.push({ name: 'ProductView', params: { title } })
 }
 
+const showPreview = (product, event) => {
+  if (previewTimeout) clearTimeout(previewTimeout)
+  previewTimeout = setTimeout(() => {
+    previewProduct.value = product
+    isPreviewVisible.value = true
+    previewPosition.value = {
+      x: event.clientX + 10,
+      y: event.clientY + 10
+    }
+  }, 300) // Delay of 300ms before showing the preview
+}
+
+const hidePreview = () => {
+  if (previewTimeout) clearTimeout(previewTimeout)
+  isPreviewVisible.value = false
+  previewTimeout = setTimeout(() => {
+    previewProduct.value = null
+  }, 300) // Delay hiding to allow fade-out animation
+}
+
 onMounted(async () => {
   await store.fetchProductsFromDB()
+})
+onUnmounted(() => {
+  if (previewTimeout) clearTimeout(previewTimeout)
 })
 </script>
 
@@ -122,6 +159,7 @@ onMounted(async () => {
 
 .product-col:hover {
   transform: translateY(-5px);
+  z-index: 100;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
 

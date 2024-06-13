@@ -17,7 +17,9 @@
           <button style="color: white">INTRANET</button>
         </a>
         <v-spacer></v-spacer>
-
+        <v-btn icon>
+          <img src="./assets/defaultUser.png" alt="Logo" class="toolbar-user" />
+        </v-btn>
         <router-link to="/cart">
           <v-btn style="margin-right: 12px" icon>
             <v-badge
@@ -60,7 +62,7 @@ const showFooter = ref(false)
 const isModalVisible = ref(false)
 
 const resetAndNavigateHome = () => {
-  store.resetStore()
+  //store.resetStore()
   router.push('/')
 }
 
@@ -135,6 +137,11 @@ onUnmounted(() => {
   flex-grow: 1;
 }
 
+.toolbar-user {
+  width: 46px;
+  height: 44px;
+  cursor: alias;
+}
 .toolbar-logo {
   width: 56px;
   height: 46px;
