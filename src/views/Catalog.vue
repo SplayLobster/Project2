@@ -16,9 +16,7 @@
             class="product-col"
             @click="goToProductPage(product.title)"
           >
-            <div class="product-item">
-              <product-item :product-data="product" @item-clicked="goToProductPage" />
-            </div>
+            <product-item :product-data="product" @item-clicked="goToProductPage" />
           </v-col>
         </v-row>
       </div>
@@ -77,103 +75,54 @@ onMounted(async () => {
 
 <style scoped>
 .catalog-container {
-  padding-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .search-bar {
-  position: fixed;
-  z-index: 100;
-  top: 7%;
-  left: 10%;
-  width: 100%;
-  max-width: 80%;
-  background-color: white;
-  padding: 6px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  width: 80%;
+  max-width: 600px;
 }
 
 .products-list {
-  max-width: 85%;
-  margin: 80px auto 0;
+  width: 100%;
+  padding: 0 20px;
 }
 
 .category-section {
-  max-width: 85%;
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-bottom: 4px solid #0ac6ffad;
+  margin-bottom: 40px;
 }
 
 .category-title {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   font-size: 24px;
-  font-weight: bold;
-  text-align: center;
+  text-align: left;
+  width: 100%;
   border-bottom: 2px solid #f1f1f1;
 }
 
 .products-row {
-  justify-content: flex-start;
+  display: flex;
   flex-wrap: wrap;
 }
 
 .product-col {
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-}
-
-.product-item {
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.524);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 220px;
-  min-width: 180;
-  margin: 0 auto;
-  justify-content: space-between;
-}
-
-.product-item-card {
   cursor: pointer;
+  width: 100%;
+  height: 100%;
+  max-width: 150px;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  width: 100%;
-}
-
-.product-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.product-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.product-brand {
-  font-size: 12px;
-  color: #757575;
-  margin-bottom: 5px;
-}
-
-.product-price {
-  font-size: 16px;
-  font-weight: bold;
-  color: #000000;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
 }
 </style>

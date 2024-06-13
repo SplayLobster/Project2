@@ -74,10 +74,10 @@ const closeAccountModal = () => {
   isModalVisible.value = false
 }
 
-let timeout = null
+let debounceTimeout = null
 const handleScroll = () => {
-  clearTimeout(timeout)
-  timeout = setTimeout(() => {
+  clearTimeout(debounceTimeout)
+  debounceTimeout = setTimeout(() => {
     const scrollPosition = window.scrollY + window.innerHeight
     const threshold = document.documentElement.scrollHeight - window.innerHeight * 0.1 // Show footer when within 10% of the bottom
     showFooter.value = scrollPosition >= threshold
@@ -85,14 +85,13 @@ const handleScroll = () => {
 }
 
 handleScroll()
-let debounceTimeout = null
 const debounceScroll = () => {
   clearTimeout(debounceTimeout)
   debounceTimeout = setTimeout(handleScroll, 50)
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', debounceScroll)
+  window.addEventListener('scroll', handleScroll)
   handleScroll() // Initial check in case user is already at the bottomù
   const session = JSON.parse(localStorage.getItem('session'))
   if (session) {

@@ -51,6 +51,7 @@ export default {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 .footer-logo {
   height: 140px;

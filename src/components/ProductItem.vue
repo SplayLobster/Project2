@@ -21,10 +21,12 @@ export default {
 
 <style scoped>
 .product-item-card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.524);
+  cursor: pointer;
   width: 100%;
   height: 100%;
-  max-width: 150px; /* Consistent width */
-  max-height: 300px; /* Consistent height */
+  max-width: 150px;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,6 +46,12 @@ export default {
 .product-title {
   font-size: 14px;
   font-weight: bold;
+  margin: 10px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 150px;
 }
 
 .product-brand {
@@ -52,8 +60,6 @@ export default {
 }
 
 .product-price {
-  font-size: 16px;
-  font-weight: bold;
-  color: #000000;
+  color: #ba2a25;
 }
 </style>
