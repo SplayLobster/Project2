@@ -138,7 +138,7 @@ onUnmounted(() => {
 .toolbar-logo {
   width: 56px;
   height: 46px;
-  cursor: pointer;
+  cursor: alias;
 }
 .toolbar-home {
   width: 40px;
