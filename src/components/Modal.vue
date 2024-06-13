@@ -70,8 +70,12 @@
 
 <script setup>
 import { defineEmits, ref } from 'vue'
+import { productsStore } from '@/stores/products'
+import { useRouter } from 'vue-router'
 
 const emit = defineEmits(['close'])
+const store = productsStore()
+const router = useRouter()
 
 const paymentData = ref({
   cardNumber: '',
@@ -81,6 +85,14 @@ const paymentData = ref({
   billingAddress: ''
 })
 
+const resetAndNavigateHome = () => {
+  store.resetStore()
+  router.push('/')
+}
+
+const clearCart = () => {
+  store.cart = []
+}
 const resetForm = () => {
   paymentData.value = {
     cardNumber: '',
@@ -93,6 +105,9 @@ const resetForm = () => {
 const handlePayment = () => {
   // Implement payment logic here
   alert('Payment Submitted')
+  clearCart()
+  resetAndNavigateHome()
+  resetForm()
   close()
 }
 

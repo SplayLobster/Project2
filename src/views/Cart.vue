@@ -41,8 +41,8 @@
     </div>
     <div v-if="groupedCart.length" class="cart-summary">
       <div class="summary-info">
-        <p style="float: right; padding-right: 4px">Summary of order ({{ returnlenght }} items):</p>
-        <h4 style="float: left">${{ returnSum }}</h4>
+        <h4 style="float: right">${{ returnSum }}</h4>
+        <p style="float: left; padding-right: 4px">Summary of order ({{ returnlenght }} items):</p>
       </div>
       <button type="button" class="payment-button" @click="showModal">PAYMENT</button>
       <Modal v-if="isModalVisible" @close="closeModal">
@@ -188,9 +188,9 @@ p {
 /* Cart Items Container */
 .cart-items {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* Display 4 items per row */
   gap: 20px;
-  padding: 20px;
+  padding: 1px;
 }
 
 /* Cart Item Styles */
@@ -205,6 +205,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 15px;
 }
 .cart-item:hover {
   transform: translateY(-5px);
@@ -221,10 +222,9 @@ p {
 
 /* Item Info */
 .item-info {
-  padding: 16px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .item-info h2 {
@@ -237,7 +237,7 @@ p {
 .item-info .category,
 .item-info .price {
   font-size: 14px;
-  color: #666;
+  color: #ff0000;
 }
 
 /* Quantity Controls */
@@ -292,9 +292,9 @@ p {
   align-items: center;
   background-color: #f7f7f7;
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 22px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  margin: 4px;
 }
 
 .summary-info {
