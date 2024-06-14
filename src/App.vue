@@ -9,15 +9,15 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn icon @click="openAccountModal">
+        <a href="https://www.onologistics.com/" target="blank">
           <img src="./assets/logo.png" alt="Logo" class="toolbar-logo" />
-        </v-btn>
+        </a>
 
         <a href="https://www.onologistics.com/" target="blank">
-          <button style="color: white">INTRANET</button>
+          <button class="toolbar-user" style="color: white">INTRANET</button>
         </a>
         <v-spacer></v-spacer>
-        <v-btn icon>
+        <v-btn icon @click="openAccountModal">
           <img src="./assets/defaultUser.png" alt="Logo" class="toolbar-user" />
         </v-btn>
         <router-link to="/cart">

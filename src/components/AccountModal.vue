@@ -1,10 +1,13 @@
 <template>
   <v-dialog class="modal-backdrop" v-model="isVisible" max-width="500px" @keydown.esc="closeDialog">
     <v-card class="modal-content">
-      <v-toolbar flat style="background-color: #0ac6ffad; color: white">
+      <v-toolbar flat class="modal-toolbar">
         <v-toolbar-title>{{ isLogin ? 'Login' : 'Create Account' }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon class="modal-close" @click="closeDialog"> X </v-btn>
+        <v-btn icon @click="openSettingsDialog" class="modal-settings">
+          <img src="./assets/settings.png" alt="Settings" />
+        </v-btn>
+        <v-btn icon @click="closeDialog" class="modal-close"> X </v-btn>
       </v-toolbar>
       <v-card-text>
         <form @submit.prevent="submit">
@@ -32,22 +35,25 @@
             />
             <span v-if="passwordError" class="error">{{ passwordError }}</span>
           </div>
-          <v-btn type="submit" style="background-color: #0ac6ffad; color: white">{{
-            isLogin ? 'Login' : 'Create Account'
-          }}</v-btn>
+          <v-btn class="submit-btn" type="submit">{{ isLogin ? 'Login' : 'Create Account' }}</v-btn>
         </form>
       </v-card-text>
       <v-card-actions>
-        <v-btn text @click="toggleForm" style="background-color: #0ac6ffad; color: white">{{
+        <v-btn text class="toggle-form-btn" @click="toggleForm">{{
           isLogin ? 'Create Account' : 'Login'
         }}</v-btn>
       </v-card-actions>
+      <v-card-actions>
+        <v-btn class="logout-btn" @click="logout">Logout</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
+  <SettingsModal v-model="isSettingsVisible" />
 </template>
 
 <script setup>
 import { ref, watch, onMounted } from 'vue'
+import SettingsModal from '@/components/SettingsModal.vue' // Import the settings component
 
 // Props and Emits
 const props = defineProps({
@@ -60,6 +66,7 @@ const emit = defineEmits(['close'])
 
 const isVisible = ref(props.show)
 const isLogin = ref(true)
+const isSettingsVisible = ref(false)
 
 const form = ref({
   email: '',
@@ -110,13 +117,19 @@ const submit = () => {
     closeDialog()
   }
 }
+
 const logout = () => {
   localStorage.removeItem('session')
   alert('You have been logged out')
   // Update UI or redirect as needed
 }
+
 const toggleForm = () => {
   isLogin.value = !isLogin.value
+}
+
+const openSettingsDialog = () => {
+  isSettingsVisible.value = true
 }
 
 const closeDialog = () => {
@@ -147,23 +160,24 @@ onMounted(() => {
 }
 
 .modal-content {
-  position: relative;
   background: white;
   width: 100%;
-  max-width: 400px;
-  padding: 20px;
+  max-width: 500px;
+  padding: 0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.modal-toolbar {
+  background-color: #0ac6ffad;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
 .modal-close {
-  position: absolute;
-  top: -10px;
-  right: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 16px;
+  color: white;
+  margin-right: 10px;
 }
 
 .form-group {
@@ -184,21 +198,41 @@ onMounted(() => {
   margin-top: 5px;
 }
 
-.v-btn {
-  display: block;
+.submit-btn {
   width: 100%;
-  text-align: center;
   padding: 10px;
   margin-top: 20px;
-  background: #00e5ffcb;
+  background-color: #0ac6ffad;
   color: white;
-  border: none;
-  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 4px;
+}
+
+.submit-btn:hover {
+  background-color: #0099cc;
+}
+
+.toggle-form-btn {
+  width: 100%;
+  margin-top: 10px;
+  color: #0ac6ffad;
+  text-transform: none;
   font-size: 14px;
 }
 
-.v-btn:hover {
-  background: #0ac6ffad;
+.logout-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: red;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.logout-btn:hover {
+  background-color: darkred;
 }
 </style>

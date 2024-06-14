@@ -1,6 +1,6 @@
 <template>
   <title>Intranet</title>
-  <div class="catalog-container" @mousemove="updatePreviewPosition">
+  <div class="catalog-container">
     <v-text-field v-model="searchQuery" clearable label="Search" class="search-bar"></v-text-field>
     <div class="products-list">
       <div v-for="(products, category) in filteredCatalog" :key="category" class="category-section">
@@ -16,9 +16,10 @@
             class="product-col"
             @click="goToProductPage(product.title)"
             @mouseenter="showPreview(product, $event)"
+            @mousemove="updatePreviewPosition"
             @mouseleave="hidePreview"
           >
-            <product-item :product-data="product" @item-clicked="goToProductPage" />
+            <product-item :product-data="product" />
           </v-col>
         </v-row>
       </div>
@@ -84,14 +85,13 @@ const goToProductPage = (title) => {
 
 const showPreview = (product, event) => {
   if (previewTimeout) clearTimeout(previewTimeout)
-  previewTimeout = setTimeout(() => {
-    previewProduct.value = product
-    isPreviewVisible.value = true
-    previewPosition.value = {
-      x: event.clientX + 10,
-      y: event.clientY + 10
-    }
-  }, 300) // Delay of 300ms before showing the preview
+  previewProduct.value = product
+  isPreviewVisible.value = true
+  const scrollOffset = { x: window.scrollX, y: window.scrollY }
+  previewPosition.value = {
+    x: event.clientX + 100 + scrollOffset.x,
+    y: event.clientY + 120 + scrollOffset.y
+  }
 }
 
 const hidePreview = () => {
@@ -99,7 +99,7 @@ const hidePreview = () => {
   isPreviewVisible.value = false
   previewTimeout = setTimeout(() => {
     previewProduct.value = null
-  }, 300) // Delay hiding to allow fade-out animation
+  }, 800) // Delay hiding to allow fade-out animation
 }
 
 onMounted(async () => {
@@ -116,6 +116,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   padding-bottom: 80px; /* Adjust bottom padding to accommodate footer */
+  position: relative; /* Needed for absolute positioning of preview */
 }
 
 .search-bar {
@@ -158,7 +159,7 @@ onUnmounted(() => {
 }
 
 .product-col:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   z-index: 100;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -184,6 +185,17 @@ onUnmounted(() => {
   font-size: 16px;
   font-weight: bold;
   color: #333;
+}
+
+.product-preview {
+  position: absolute;
+  z-index: 300;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s;
+  pointer-events: none;
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 @media (max-width: 960px) {

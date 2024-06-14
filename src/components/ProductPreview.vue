@@ -32,7 +32,7 @@ export default defineComponent({
 <style scoped>
 .product-preview {
   position: absolute;
-  z-index: 1000;
+  z-index: 100;
   width: 250px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   transition: opacity 0.3s ease-in-out;
