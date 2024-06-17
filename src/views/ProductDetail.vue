@@ -19,7 +19,11 @@
         <br />
         <p style="margin-bottom: 0px">{{ selectedProduct.description }}</p>
         <br />
-        <h2 style="margin-top: -12px">Price: ${{ selectedProduct.price }}</h2>
+        <div style="margin-top: -12px; display: flex; align-items: center">
+          <h2>Price:</h2>
+          <h2 style="margin-left: 1%; color: red">${{ selectedProduct.price }}</h2>
+        </div>
+
         <div class="button-alert-container">
           <v-btn
             style="margin-right: 10px"
@@ -52,7 +56,7 @@
             <v-img :src="suggested.thumbnail" height="150px" />
             <v-card-title>{{ suggested.title }}</v-card-title>
             <v-card-subtitle>{{ suggested.brand }}</v-card-subtitle>
-            <v-card-text>${{ suggested.price }}</v-card-text>
+            <v-card-text style="color: red">${{ suggested.price }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>

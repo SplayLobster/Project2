@@ -155,9 +155,15 @@ onUnmounted(() => {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.524);
   cursor: pointer;
   width: 100%;
-  max-width: 180px; /* Adjust product column width */
-  padding: 10px;
-  margin-bottom: 20px;
+  height: 100%;
+  min-width: 200px;
+  max-width: 300px;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
 }
 
 .product-col:hover {

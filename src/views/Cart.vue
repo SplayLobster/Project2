@@ -206,7 +206,7 @@ p {
 .cart-items {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Display 4 items per row */
-  gap: 20px;
+  gap: 1%;
   padding: 1px;
 }
 
@@ -233,13 +233,12 @@ p {
 .product-thumbnail {
   cursor: pointer;
   height: 180px;
-  width: 100%;
   object-fit: cover;
 }
 
 /* Item Info */
 .item-info {
-  padding: 8px;
+  padding: 4%;
   display: flex;
   flex-direction: column;
 }

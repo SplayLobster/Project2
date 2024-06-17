@@ -33,7 +33,6 @@ export default {
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  padding: 10px;
 }
 
 .product-image {
