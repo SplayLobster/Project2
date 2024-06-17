@@ -48,18 +48,20 @@
       <ProductComments :reviews="selectedProduct.reviews" />
     </div>
 
-    <div class="suggested-products">
-      <h3>Suggested Products</h3>
-      <v-row>
-        <v-col v-for="suggested in suggestedProducts" :key="suggested.title" cols="4">
-          <v-card @click="goToProductPage(suggested.title)" style="cursor: pointer">
-            <v-img :src="suggested.thumbnail" height="150px" />
-            <v-card-title>{{ suggested.title }}</v-card-title>
-            <v-card-subtitle>{{ suggested.brand }}</v-card-subtitle>
-            <v-card-text style="color: red">${{ suggested.price }}</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+    <div class="suggested-products-wrapper">
+      <div class="suggested-products">
+        <h3 style="margin-bottom: 5%">You may even like</h3>
+        <v-row>
+          <v-col v-for="suggested in suggestedProducts" :key="suggested.title" cols="4">
+            <v-card @click="goToProductPage(suggested.title)" style="cursor: pointer">
+              <v-img :src="suggested.thumbnail" height="150px" />
+              <v-card-title>{{ suggested.title }}</v-card-title>
+              <v-card-subtitle>{{ suggested.brand }}</v-card-subtitle>
+              <v-card-text style="color: red">${{ suggested.price }}</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
     </div>
   </div>
 </template>
@@ -135,6 +137,20 @@ const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
   display: flex;
   margin-top: 50px;
 }
+.product {
+  flex: 3;
+  margin-right: 24px;
+}
+.suggested-products-wrapper {
+  flex: 1;
+  margin-left: 24px;
+  margin-top: -32px;
+  position: relative;
+}
+.suggested-products {
+  position: sticky;
+  top: 50px; /* Adjust based on your layout */
+}
 .payment-button {
   background-color: #ffd814;
   color: #000000;
@@ -154,17 +170,6 @@ const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
   max-width: 100%;
   overflow: hidden;
 }
-.product {
-  flex: 3;
-  margin-right: 24px;
-}
-
-.suggested-products {
-  flex: 1;
-  margin-left: 24px;
-  margin-top: -32px;
-}
-
 .suggested-product {
   cursor: pointer;
   display: flex;
@@ -172,29 +177,24 @@ const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
   align-items: center;
   margin-bottom: 16px;
 }
-
 .suggested-product img {
   width: 100px;
   height: 100px;
   object-fit: cover;
   margin-bottom: 8px;
 }
-
 .suggested-product p {
   margin: 0;
   text-align: center;
   font-size: 14px;
 }
-
 .rating {
   display: flex;
   align-items: center;
 }
-
 .rated {
   color: #ffab00;
 }
-
 .unrated {
   color: #757575;
 }
@@ -204,7 +204,6 @@ const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
   margin-top: 10px;
   margin-left: auto;
 }
-
 .alert-icon {
   color: orange;
   margin-right: 5px;
@@ -214,24 +213,10 @@ const hasHalfStar = computed(() => selectedProduct.value.rating % 1 !== 0)
   align-items: center;
   margin-top: 10px;
 }
-
-.cart-alert {
-  display: flex;
-  align-items: center;
-  margin-left: 10px; /* Space between the button and the alert */
-}
-
-.alert-icon {
-  font-size: 30px;
-  color: orange;
-  margin-right: 5px;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
