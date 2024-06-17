@@ -5,7 +5,7 @@
         <v-toolbar-title>{{ isLogin ? 'Login' : 'Create Account' }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click="openSettingsDialog" class="modal-settings">
-          <img src="./assets/settings.png" alt="Settings" />
+          <img src="../assets/settings.png" alt="Settings" style="width: 78px; height: 50px" />
         </v-btn>
         <v-btn icon @click="closeDialog" class="modal-close"> X </v-btn>
       </v-toolbar>
@@ -173,6 +173,9 @@ onMounted(() => {
   color: white;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+}
+.modal-settings {
+  margin-right: 10px; /* Add margin to separate from close button */
 }
 
 .modal-close {

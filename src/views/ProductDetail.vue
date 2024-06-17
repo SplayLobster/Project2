@@ -103,15 +103,19 @@ const suggestedProducts = computed(() => {
 })
 
 const addToCart = () => {
-  console.log(selectedProduct.value.reviews)
   store.addToCart(selectedProduct.value)
 }
 const handleAddToCart = () => {
-  addToCart()
+  for (const product of store.cart) {
+    if (product.title === selectedProduct.value.title) {
+      router.push({ name: 'CartView' })
+    }
+  }
   cartAlertVisible.value = true
   setTimeout(() => {
     cartAlertVisible.value = false
   }, 1000)
+  addToCart()
 }
 
 const goToProductPage = (title) => {

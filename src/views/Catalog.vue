@@ -88,10 +88,12 @@ const showPreview = (product, event) => {
   previewProduct.value = product
   isPreviewVisible.value = true
   const scrollOffset = { x: window.scrollX, y: window.scrollY }
-  previewPosition.value = {
-    x: event.clientX + 100 + scrollOffset.x,
-    y: event.clientY + 120 + scrollOffset.y
-  }
+  previewTimeout = setTimeout(() => {
+    previewPosition.value = {
+      x: event.clientX + 100 + scrollOffset.x,
+      y: event.clientY + 120 + scrollOffset.y
+    }
+  }, 100) // Delay hiding to allow fade-out animation
 }
 
 const hidePreview = () => {

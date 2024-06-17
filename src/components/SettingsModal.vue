@@ -28,13 +28,7 @@
               v-model="settings.password"
             />
           </div>
-          <div class="form-group">
-            <label for="theme">Select Theme</label>
-            <select id="theme" class="form-control" v-model="settings.theme">
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-            </select>
-          </div>
+
           <v-btn class="submit-btn" type="submit">Save</v-btn>
         </form>
       </v-card-text>
@@ -58,8 +52,7 @@ const isVisible = ref(props.modelValue)
 
 const settings = ref({
   name: '',
-  password: '',
-  theme: 'light'
+  password: ''
 })
 
 const saveSettings = () => {
@@ -92,6 +85,12 @@ onMounted(() => {
 .modal-toolbar {
   background-color: #0ac6ffad;
   color: white;
+}
+
+.modal-settings {
+  font-size: 20px;
+  color: white;
+  margin-right: 10px;
 }
 
 .modal-close {
